@@ -1,0 +1,156 @@
+/*
+Saman Arif
+February 24th, 2018
+60-270
+
+==========================================
+Common
+==========================================
+*/
+
+body{
+    margin: 50px 0px 55px 0px;
+    background-color: rgb(211, 211, 211)
+}
+
+a{
+    color: cornflowerblue;
+    text-decoration: none;
+}
+
+h1{
+    text-align: center;
+    color: rgb(68, 66, 66);
+}
+
+h3{
+    text-align: center;
+    color: rgb(68, 66, 66);
+}
+
+/*
+==========================================
+Navigation and Header
+==========================================
+*/
+
+.navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    font-family: Courier New, Courier, monospace;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.navbar li{
+    float: left;
+    border-right: 1px solid #bbb;
+}
+
+.navbar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navbar li a:hover{
+    background-color: cadetblue;
+}
+
+/*
+==========================================
+Page content
+==========================================
+*/
+
+.content{
+    width: 60%;
+    height: auto;
+    overflow: auto;
+    margin: auto;
+    padding-top: 100px;
+    font-family: Courier New, Courier, monospace;
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.content img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+}
+
+.content iframe{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.content input[type=text], select, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 2px dashed #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical
+}
+
+.content button{
+    border: 5px dashed #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 20px;
+    font-family: Courier New, Courier, monospace;
+    font-weight: bold;
+    background-color: white;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical
+}
+
+.content table {
+    width: 70%;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical
+ }
+
+ .content td, th {
+    width: 50%;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+ }
+
+/*
+==========================================
+Footer
+==========================================
+*/
+
+.footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    text-align: right;
+    font-family: Courier New, Courier, monospace;
+}
+
+.footer p{
+    padding-right: 20px;
+}
