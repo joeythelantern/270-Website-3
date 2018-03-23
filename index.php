@@ -1,3 +1,6 @@
+<?php
+        include("functions.php");
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,6 +9,18 @@
     <style>
         .active{
             background-color: cadetblue;
+        }
+
+        .submitStyle{
+            background-color: cadetblue;
+            text-decoration: none;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 2px;
+            color: white;
+        }
+        .submitStyle:hover{
+            background-color: cornflowerblue;
         }
     </style>
 </head>
@@ -18,6 +33,12 @@
     <div class="content" align="center">
         <h1>Inventory</h1>
         <p style="text-align:left">Please select the number of each item you wish to purchase.  You can do this by inputting numbers into the quantity section, then click Purchase.  The following is a list of all the items available for purchase.  You may click the item to add to your quantity, or manually type the quantity in the input fields.</p><br>
+        <?php
+        loadInventory();
+        ?>
+        <h1>Input</h1>
+        <p style="text-align:left">If you do not click the items and wish to enter the input manually, please do so below.  Once you are finished, hit the purchase button and if the ammount of each item is available, your purchase will be processed.</p>
+        
         <table>
             <tr>
                 <th>
@@ -52,8 +73,9 @@
                 </td>
             </tr>
         </table>
-        
-        
+        <br>
+        <p><a href="#" class="submitStyle" style="margin-top: 6px;">Purchase</a></p>
+        <br>
     </div>
     <div class="footer">
         <p>Designed for assignment 3 | Design by <a href="mailto:arifs@uwindsor.ca">Saman Arif</a>.</p>
