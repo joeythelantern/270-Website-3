@@ -1,5 +1,5 @@
 <?php
-        include("functions.php");
+    include("functions.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -9,6 +9,11 @@
     <style>
         .active{
             background-color: cadetblue;
+        }
+
+        .error 
+        {
+            text-align: center;
         }
 
         .submitStyle{
@@ -25,6 +30,9 @@
     </style>
 </head>
 <body>
+    <?php
+        
+    ?>
     <div class="banner">
     <ul class="navbar">
         <li><a href="index.html">Inventory</a></li>
@@ -34,11 +42,12 @@
         <h1>Inventory</h1>
         <p style="text-align:left">Please select the number of each item you wish to purchase.  You can do this by inputting numbers into the quantity section, then click Purchase.  The following is a list of all the items available for purchase.  You may click the item to add to your quantity, or manually type the quantity in the input fields.</p><br>
         <?php
-        loadInventory();
+            loadInventory();
         ?>
         <h1>Input</h1>
         <p style="text-align:left">If you do not click the items and wish to enter the input manually, please do so below.  Once you are finished, hit the purchase button and if the ammount of each item is available, your purchase will be processed.</p>
         
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
         <table>
             <tr>
                 <th>
@@ -48,34 +57,16 @@
                     <h3>Quantity</h3>
                 </th>
             </tr>
-            <tr>
-                <td>
-                    <label for "airDusterInput">Air Dusters</label>
-                </td>
-                <td>
-                    <input type="text" id="airDusterInput" name="airDuster" placeholder="0">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for "fan120Input">120mm Fan</label>
-                </td>
-                <td>
-                    <input type="text" id="fan120Input" name="fan120" placeholder="0">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for "fan240Input">240 Fan</label>
-                </td>
-                <td>
-                    <input type="text" id="fan240Input" name="fan240" placeholder="0">
-                </td>
-            </tr>
+            <?php
+                loadInventoryTable();
+            ?>
         </table>
         <br>
-        <p><a href="#" class="submitStyle" style="margin-top: 6px;">Purchase</a></p>
+        <p><input type="submit" name="submit" value="Purchase" class="submitStyle"></p>
         <br>
+        </form>
+        <br>
+        <p><span class="error"><?php echo $errorMessage;?></span></p>
     </div>
     <div class="footer">
         <p>Designed for assignment 3 | Design by <a href="mailto:arifs@uwindsor.ca">Saman Arif</a>.</p>

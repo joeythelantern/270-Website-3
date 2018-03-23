@@ -1,5 +1,8 @@
 <?php
 
+//==========================
+// Global Vars
+//==========================
 $lines = array();
 $itemName = array();
 $itemPrice = array();
@@ -7,6 +10,8 @@ $itemCount = array();
 
 function loadInventory()
 {
+    global $lines, $itemName, $itemPrice, $itemCount;
+
     // Open file
     $inventoryFile = fopen("inventory.txt", "r") or die("Unable to open inventory file!");
             
@@ -34,18 +39,34 @@ function loadInventory()
     }
 
     for($l = 0; $l < count($lines); $l++)
-        {
-            print "<div class=\"product\"><ul><li class=\"header\">";
-            print $itemName[$l];
-            print "</li><li class=\"price\">$$";
-            print $itemPrice[$l];
-            print " Each</li><li class=\"availability\">";
-            print $itemCount[$l];
-            print " in Stock</li></ul></div>";
-        }
+    {
+        print "<div class=\"product\"><ul><li class=\"header\">";
+        print $itemName[$l];
+        print "</li><li class=\"price\">$$";
+        print $itemPrice[$l];
+        print " Each</li><li class=\"availability\">";
+        print $itemCount[$l];
+        print " in Stock</li></ul></div>";
+    }
 
     // Close file
     fclose($inventoryFile);
+}
+
+function loadInventoryTable()
+{
+    global $lines, $itemName;
+    
+    for($l = 0; $l < count($lines); $l++)
+    {
+        $temp = str_replace("-", "", $itemName[$l]);
+
+        print "<tr><td>";
+        print "<label for \"" . $temp . "Input\">" . $temp . "</label>";
+        print "</td><td>";
+        print "<input type=\"text\" id=\"" . $temp . "Input\" name=\""  . $temp . "\">";
+        print "</td></tr>";
+    }
 }
 
 ?>
