@@ -116,9 +116,22 @@ function handleSubmission($posts)
 function adjustInventory($purchaseCount)
 {
     // Open file
-    $inventoryFile = fopen("inventory.txt", "r") or die("Unable to open inventory file!");
+    $inventoryFile = fopen("inventory.txt", "w") or die("Unable to open inventory file!");
 
+    // Save as Session Variables
+    for($r = 0; $r < count($purchaseCount); $r++)
+    {
+        $newCount = (int)$_SESSION['stock'][$r] - $purchaseCount[$r];
 
+        $txt;
+
+        if($r < count($purchaseCount) - 1)
+            $txt = $_SESSION['names'][$r] . "," . $_SESSION['prices'][$r] . "," . $newCount . PHP_EOL;
+        else
+            $txt = $_SESSION['names'][$r] . "," . $_SESSION['prices'][$r] . "," . $newCount;
+
+        fwrite($inventoryFile, $txt);
+    }
 
     // Close file
     fclose($inventoryFile);
