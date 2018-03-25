@@ -135,6 +135,14 @@ function adjustInventory($purchaseCount)
 
     // Close file
     fclose($inventoryFile);
+
+    header("Location: receipt.php");
+    exit;
+}
+
+function loadReceiptPage()
+{
+
 }
 
 function returnPurchaseError($name, $count, $inventory)
