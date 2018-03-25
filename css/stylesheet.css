@@ -129,7 +129,6 @@ Page content
  }
 
  .content td, th {
-    width: 50%;
     border: 2px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;

@@ -1,5 +1,10 @@
 <?php
 
+// Saman Arif
+// Assignment 3
+// 60-270
+// March 25th, 2018
+
 //==========================
 // Global Vars
 //==========================
@@ -9,6 +14,7 @@ $itemPrice = array();
 $itemCount = array();
 $errorMessage = "";
 
+// used by all pages, for session variables
 session_start();
 
 if (isset($_POST['submit'])) 
@@ -16,6 +22,10 @@ if (isset($_POST['submit']))
     handleSubmission($_POST);
 }
 
+//==========================
+// Load the inventory into
+// variables and session
+//==========================
 function loadInventory()
 {
     global $lines, $itemName, $itemPrice, $itemCount;
@@ -28,12 +38,14 @@ function loadInventory()
         $lines = explode("\n", fread($inventoryFile, filesize("inventory.txt")));
     }
 
+    // remove spaces
     foreach($lines as $i=>$line)
     {
         $line = str_replace(" ", "", $line);
         $lines[$i] = $line;
     }
 
+    // index arrays
     for($k = 0; $k < count($lines); $k++)
     {
         $lineSeparator = array();
@@ -50,11 +62,15 @@ function loadInventory()
     $_SESSION['names'] = $itemName;
     $_SESSION['prices'] = $itemPrice;
     $_SESSION['stock'] = $itemCount;
+    $_SESSION['receipt'] = false;
 
     // Close file
     fclose($inventoryFile);
 }
 
+//==========================
+// Load display
+//==========================
 function loadItems()
 {
     global $itemName, $itemPrice, $itemCount, $lines;
@@ -63,7 +79,7 @@ function loadItems()
     {
         print "<div class=\"product\"><ul><li class=\"header\">";
         print $itemName[$l];
-        print "</li><li class=\"price\">$$";
+        print "</li><li class=\"price\">$";
         print $itemPrice[$l];
         print " Each</li><li class=\"availability\">";
         print $itemCount[$l];
@@ -71,6 +87,9 @@ function loadItems()
     }
 }
 
+//==========================
+// Load table and Inputs
+//==========================
 function loadInventoryTable()
 {
     global $lines, $itemName;
@@ -87,6 +106,9 @@ function loadInventoryTable()
     }
 }
 
+//==========================
+// For POST handing
+//==========================
 function handleSubmission($posts) 
 {
     $purchaseCount = array();
@@ -109,10 +131,16 @@ function handleSubmission($posts)
         }
     }
 
+    // create session variable for purchase
+    $_SESSION['purchase'] = $purchaseCount;
+
     // If we get to this point, it means we have enough inventory.  Proceed to adjust inventory.
     adjustInventory($purchaseCount);
 }
 
+//==========================
+// Load new inventory
+//==========================
 function adjustInventory($purchaseCount)
 {
     // Open file
@@ -136,15 +164,66 @@ function adjustInventory($purchaseCount)
     // Close file
     fclose($inventoryFile);
 
+    // Create Invoice
+    $_SESSION['receipt'] = true;
     header("Location: receipt.php");
     exit;
 }
 
+//==========================
+// Invoice Page
+//==========================
 function loadReceiptPage()
 {
+    // Grand Total
+    $total = 0;
 
+    // Item Totals
+    $itemTotals = array();
+
+    // Get each item total
+    for($i = 0; $i < count($_SESSION['purchase']); $i++)
+    {
+        $temp = $_SESSION['purchase'][$i] * (float)$_SESSION['prices'][$i];
+        array_push($itemTotals, $temp);
+    }
+
+    // Get grand total
+    for($k = 0; $k < count($itemTotals); $k++)
+    {
+        $total = $total + $itemTotals[$k];
+    }
+
+    // Load Table
+    for($j = 0; $j < count($itemTotals); $j++)
+    {
+        print "<tr>";
+        print "<td>" . $_SESSION['names'][$j] ."</td>";
+        print "<td>$" . $_SESSION['prices'][$j] ."</td>";
+        print "<td>" . $_SESSION['purchase'][$j] ."</td>";
+        print "<td>" . $itemTotals[$j] ."</td>";
+        print "</tr>";
+    }
+
+    // Set up Totals Column
+    print "<tr><td></td>";
+    print "<td>Total: </td>";
+
+    $quantity = 0;
+
+    for($l = 0; $l < count($itemTotals); $l++)
+    {
+        $quantity = $quantity + $_SESSION['purchase'][$l];
+    }
+
+    print "<td>" . $quantity . "</td>";
+    print "<td>" . $total ."</td>";
+    print "</tr>";
 }
 
+//==========================
+// Error for bad ammount
+//==========================
 function returnPurchaseError($name, $count, $inventory)
 {
     global $errorMessage;

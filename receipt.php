@@ -1,5 +1,15 @@
 <?php
     include("functions.php");
+
+    // Check to see if we made a purchase.  If not, redirect.
+    if($_SESSION['receipt'] == false)
+    {
+        header("Location: index.php");
+        exit;
+    }
+
+    // Set this for a one time session.  If they leave the page, it's gone.
+    $_SESSION['receipt'] = false;
     loadInventory();
 ?>
 <!DOCTYPE html>
@@ -36,9 +46,27 @@
         <h1>Receipt</h1>
         <p style="text-align:left">Thanks for purchasing our products.  Please print this receipt now, if you leave this page you will be unable to return.</p>
         <p style="text-align:left">Here is your order summary:</p>
-        <?php
-            LoadItems();
-        ?>
+        <table>
+            <tr>
+                <td>
+                Item
+                </td>
+                <td>
+                Price
+                </td>
+                <td>
+                Quantity
+                </td>
+                <td>
+                Cost
+                </td>
+            </tr>
+            <?php
+                loadReceiptPage();
+            ?>
+        </table>
+        <p><a href="index.php" class="submitStyle">Back to Store</a></p>
+        <p>The new ammount of stock for each item will be shown on the Inventory page, and has been updated in the database.</p>
     </div>
     <?php include("footer.php") ?>
 </body>
