@@ -82,15 +82,13 @@ function loadInventoryTable()
         print "<tr><td>";
         print "<label for \"" . $temp . "Input\">" . $temp . "</label>";
         print "</td><td>";
-        print "<input type=\"text\" id=\"" . $temp . "Input\" name=\""  . $temp . "\" pattern=\"[0-9]{1,3}\" title=\"Enter a number to purchase.\" placeholder=\"0\" required>";
+        print "<input type=\"text\" id=\"" . $temp . "Input\" name=\""  . $temp . "\" pattern=\"[0-9]{1,2}\" title=\"Enter a number to purchase up to 99.\" placeholder=\"0\" required>";
         print "</td></tr>";
     }
 }
 
 function handleSubmission($posts) 
 {
-    global $itemCount;
-
     $purchaseCount = array();
     $enoughInventory = true;
     $i = 0;
@@ -111,17 +109,29 @@ function handleSubmission($posts)
         }
     }
 
-    print_r($purchaseCount);
+    // If we get to this point, it means we have enough inventory.  Proceed to adjust inventory.
+    adjustInventory($purchaseCount);
+}
+
+function adjustInventory($purchaseCount)
+{
+    // Open file
+    $inventoryFile = fopen("inventory.txt", "r") or die("Unable to open inventory file!");
+
+
+
+    // Close file
+    fclose($inventoryFile);
 }
 
 function returnPurchaseError($name, $count, $inventory)
 {
     global $errorMessage;
 
-    $errorMessage = "<p style=\"color:red;\">We do not have enough " . $name . " in stock.</p>" .
-                    "<p style=\"color:red;\">You requested " . $count . ".</p>" . 
-                    "<p style=\"color:red;\">There are only " . $inventory . " available.</p>" . 
-                    "<p style=\"color:red;\">Please try again with a lower quantity.</p>"
+    $errorMessage = "<p style=\"color:red; text-align: left;\">We do not have enough " . $name . " in stock.</p>" .
+                    "<p style=\"color:red; text-align: left;\">You requested " . $count . ".</p>" . 
+                    "<p style=\"color:red; text-align: left;\">There are only " . $inventory . " available.</p>" . 
+                    "<p style=\"color:red; text-align: left;\">Please try again with a lower quantity.</p>";
 }
 
 ?>

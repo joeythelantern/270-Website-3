@@ -14,8 +14,7 @@
 
         .h2 
         {
-            text-align: center;
-            color: red;
+            text-align: left;
         }
 
         .submitStyle{
@@ -34,7 +33,7 @@
 <body>
     <?php include("header.php") ?>
     <div class="content" align="center">
-        <span class="error"><h2><?php echo $errorMessage;?><h2></span>
+        <h2><?php echo $errorMessage;?></h2>
         <h1>Inventory</h1>
         <p style="text-align:left">Please select the number of each item you wish to purchase.  You can do this by inputting numbers into the quantity section, then click Purchase.  The following is a list of all the items available for purchase.  You may click the item to add to your quantity, or manually type the quantity in the input fields.</p><br>
         <?php
